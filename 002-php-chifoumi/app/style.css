@@ -1,111 +1,154 @@
-/* Configuration Globale */
 :root {
-    --bg-color: #0f172a;       /* Bleu nuit très foncé */
-    --card-bg: #1e293b;        /* Bleu gris pour la carte */
-    --text-primary: #f8fafc;   /* Blanc cassé pour le texte */
-    --text-secondary: #94a3b8; /* Gris clair pour les labels */
-    --accent: #38bdf8;         /* Bleu cyan pour les titres */
-    --btn-game: #4f46e5;       /* Indigo pour les boutons de jeu */
-    --btn-reset: #ef4444;      /* Rouge pour le reset */
+
+    --primary-color: #818cf8; 
+    --bg-color: #0f172a;      
+    --card-bg: #1e293b;       
+    --game-area-bg: #020617;  
+    
+    --text-main: #f1f5f9;     
+    --text-muted: #94a3b8;    
+    
+    --success: #34d399;       
+    --danger: #f87171;        
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-color);
-    color: var(--text-primary);
-    margin: 0;
-    min-height: 100vh;
+    color: var(--text-main);
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-/* La Carte Principale */
+/* Conteneur principal (Carte) */
 main {
     background-color: var(--card-bg);
-    padding: 3rem;
+    padding: 2rem;
     border-radius: 16px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Ombre portée douce */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
     width: 100%;
-    max-width: 450px;
+    max-width: 500px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid #334155; 
 }
 
-/* Typographie */
 h1 {
-    color: var(--accent);
     font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 2rem;
-    font-weight: 800;
+    letter-spacing: 1px;
 }
 
-/* Zone de Score (Joueur & Ordi) */
-.lancerJoueur, .lancerOrdi {
-    background: rgba(0, 0, 0, 0.2);
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 8px;
+/* Zone de jeu (Affichage des choix) */
+.game-area {
     display: flex;
-    justify-content: space-between; /* Écarte le label du résultat */
-    align-items: center;
-    font-size: 1.1rem;
-    border-left: 4px solid var(--text-secondary); /* Petite barre déco à gauche */
+    justify-content: space-around;
+    margin-bottom: 2rem;
+    background-color: var(--game-area-bg); 
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid #334155;
 }
 
-/* On change la couleur de la barre selon qui joue */
-.lancerJoueur { border-left-color: var(--accent); }
-.lancerOrdi { border-left-color: #f472b6; }
-
-p {
-    margin: 0;
-    width: 100%;
+.lancerJoueur, .lancerOrdi {
+    font-weight: 600;
 }
 
-/* Zone de Résultat */
+.lancerJoueur p, .lancerOrdi p {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.lancerJoueur span, .lancerOrdi span {
+    font-size: 1.2rem;
+    color: var(--text-main);
+    text-transform: capitalize;
+}
+
+/* Résultats */
 .resultats {
-    margin: 25px 0;
-    font-size: 1.8rem;
+    margin: 1.5rem 0;
+    font-size: 1.5rem;
     font-weight: bold;
-    min-height: 40px; /* Garde la place même si vide */
-    color: var(--text-primary);
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    min-height: 2rem;
+    text-shadow: 0 0 10px rgba(255,255,255,0.1);
 }
 
-/* Les Boutons (Liens transformés en boutons) */
-a {
-    display: inline-block;
+/* Statistique */
+.stats {
+    background-color: var(--game-area-bg);
+    color: var(--text-muted);
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    border: 1px solid #334155;
+}
+
+.stat-item {
+    padding: 2px;
+}
+
+/* Boutons de jeu */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.btn-game {
+    background-color: #334155; 
+    color: var(--text-main);
+    border: 1px solid #475569;
+    padding: 10px 20px;
+    border-radius: 50px;
     text-decoration: none;
-    background-color: var(--btn-game);
-    color: white;
-    padding: 12px 20px;
-    margin: 5px;
-    border-radius: 8px;
     font-weight: 600;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    font-size: 0.9rem;
 }
 
-/* Effet au survol */
-a:hover {
+.btn-game:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff; 
     transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-    filter: brightness(1.1);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4); /* Effet néon */
 }
 
-/* Bouton Reset Spécifique */
-a[href="/"] {
-    background-color: transparent;
-    border: 2px solid var(--btn-reset);
-    color: var(--btn-reset);
-    margin-top: 20px;
-    width: 100%; /* Le bouton reset prend toute la largeur */
-    box-sizing: border-box;
+/* Bouton Reset */
+.btn-reset {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    border-bottom: 1px dashed var(--text-muted);
+    transition: color 0.2s;
+    opacity: 0.7;
 }
 
-a[href="/"]:hover {
-    background-color: var(--btn-reset);
-    color: white;
+.btn-reset:hover {
+    color: var(--danger);
+    border-color: var(--danger);
+    opacity: 1;
 }
