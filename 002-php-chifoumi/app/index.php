@@ -1,8 +1,7 @@
 <?php
-$resulats ="";
+$resultats ="";
 $choiceOrdi = "--";
 $choice = ['pierre', 'feuille', 'ciseaux', 'spok', 'lézard'];
-$resultats = "";
 $choiceJoueur = $_GET['choice'] ?? "--";
 $winOrdi = $_GET['winOrdi'] ?? 0;
 $winJoueur = $_GET['winJoueur'] ?? 0;
@@ -34,7 +33,7 @@ function loadResults(string $choiceJoueur, string $choiceOrdi, int &$winOrdi, in
 
 if ($choiceJoueur != "--"){
         $choiceOrdi = $choice[array_rand($choice)];
-        $resulats = loadResults($choiceJoueur, $choiceOrdi, $winOrdi, $winJoueur, $zeroWin);
+        $resultats = loadResults($choiceJoueur, $choiceOrdi, $winOrdi, $winJoueur, $zeroWin);
         $numPlay += 1;
 }
 
@@ -62,7 +61,7 @@ $page = <<<HTML
         </div>
 
         <div class="resultats">
-            <p style="color:var(--primary-color)">$resulats</p>
+            <p style="color:var(--primary-color)">$resultats</p>
         </div>
 
         <div class="stats">
