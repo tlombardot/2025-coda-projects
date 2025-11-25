@@ -1,0 +1,111 @@
+/* Configuration Globale */
+:root {
+    --bg-color: #0f172a;       /* Bleu nuit très foncé */
+    --card-bg: #1e293b;        /* Bleu gris pour la carte */
+    --text-primary: #f8fafc;   /* Blanc cassé pour le texte */
+    --text-secondary: #94a3b8; /* Gris clair pour les labels */
+    --accent: #38bdf8;         /* Bleu cyan pour les titres */
+    --btn-game: #4f46e5;       /* Indigo pour les boutons de jeu */
+    --btn-reset: #ef4444;      /* Rouge pour le reset */
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* La Carte Principale */
+main {
+    background-color: var(--card-bg);
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Ombre portée douce */
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Typographie */
+h1 {
+    color: var(--accent);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    font-weight: 800;
+}
+
+/* Zone de Score (Joueur & Ordi) */
+.lancerJoueur, .lancerOrdi {
+    background: rgba(0, 0, 0, 0.2);
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between; /* Écarte le label du résultat */
+    align-items: center;
+    font-size: 1.1rem;
+    border-left: 4px solid var(--text-secondary); /* Petite barre déco à gauche */
+}
+
+/* On change la couleur de la barre selon qui joue */
+.lancerJoueur { border-left-color: var(--accent); }
+.lancerOrdi { border-left-color: #f472b6; }
+
+p {
+    margin: 0;
+    width: 100%;
+}
+
+/* Zone de Résultat */
+.resultats {
+    margin: 25px 0;
+    font-size: 1.8rem;
+    font-weight: bold;
+    min-height: 40px; /* Garde la place même si vide */
+    color: var(--text-primary);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Les Boutons (Liens transformés en boutons) */
+a {
+    display: inline-block;
+    text-decoration: none;
+    background-color: var(--btn-game);
+    color: white;
+    padding: 12px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+/* Effet au survol */
+a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1);
+}
+
+/* Bouton Reset Spécifique */
+a[href="/"] {
+    background-color: transparent;
+    border: 2px solid var(--btn-reset);
+    color: var(--btn-reset);
+    margin-top: 20px;
+    width: 100%; /* Le bouton reset prend toute la largeur */
+    box-sizing: border-box;
+}
+
+a[href="/"]:hover {
+    background-color: var(--btn-reset);
+    color: white;
+}
