@@ -1,0 +1,207 @@
+/* --- 1. CONFIGURATION GÉNÉRALE --- */
+:root {
+    --primary-color: #3498db;      /* Bleu professionnel */
+    --primary-hover: #2980b9;      /* Bleu plus foncé */
+    --accent-color: #2ecc71;       /* Vert pour valider/succès */
+    --bg-color: #f4f6f8;           /* Gris très clair pour le fond */
+    --card-bg: #ffffff;            /* Blanc pur */
+    --text-color: #2c3e50;         /* Gris foncé lisible */
+    --error-bg: #fadbd8;           /* Fond rouge clair pour les erreurs */
+    --error-text: #c0392b;         /* Texte rouge foncé */
+    --radius: 8px;                 /* Arrondi des coins */
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Prend toute la hauteur de l'écran */
+}
+
+/* --- NAVIGATION TYPE "SWITCH" --- */
+
+/* Le conteneur gris (la forme de la pilule) */
+.menu-switch {
+    display: flex;
+    justify-content: center;
+    background-color: #e0e6ed; /* Gris clair */
+    padding: 5px;
+    border-radius: 50px; /* Bords très ronds */
+    width: fit-content;  /* S'adapte à la largeur du contenu */
+    margin: 0 auto 30px auto; /* Centré avec une marge en bas */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); /* Légère ombre intérieure */
+}
+
+/* Les boutons (liens) */
+.switch-btn {
+    text-decoration: none;
+    color: #7f8c8d; /* Gris pour le texte inactif */
+    font-weight: 600;
+    padding: 10px 25px;
+    border-radius: 50px; /* Bords ronds pour suivre le conteneur */
+    transition: all 0.3s ease; /* Animation fluide */
+    font-size: 0.95rem;
+}
+
+/* Effet au survol sur le bouton inactif */
+.switch-btn:hover {
+    color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* LE BOUTON ACTIF (Celui de la page en cours) */
+.switch-btn.active {
+    background-color: white;
+    color: var(--primary-color); /* Ton bleu pro */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Ombre pour l'effet "carte" */
+    transform: scale(1.02); /* Grossit à peine pour le relief */
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* --- 3. LA CARTE (FORMULAIRE) --- */
+form {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Ombre douce */
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* --- 4. CHAMPS DE SAISIE (INPUTS) --- */
+.password p, .resultat p {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Champ texte général */
+input[type="text"], select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    box-sizing: border-box; /* Important pour ne pas dépasser la largeur */
+    transition: border-color 0.3s;
+    outline: none;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: var(--primary-color);
+}
+
+/* Style spécifique pour l'affichage du mot de passe */
+input[name="password"] {
+    background-color: #ecf0f1;
+    color: #333;
+    font-family: 'Courier New', Courier, monospace; /* Police style code */
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 1px;
+    cursor: text;
+}
+
+/* --- 5. CHECKBOXES*/
+.checkbox {
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    border-radius: var(--radius);
+    border: 1px solid #e1e4e8;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espace entre les lignes */
+}
+
+/* La ligne complète (case + texte) */
+.option {
+    display: flex;
+    align-items: center; /* C'est ICI que la magie opère : ça aligne verticalement */
+    font-size: 0.95rem;
+    color: var(--text-color);
+    cursor: default; /* Curseur normal car sans label on ne peut cliquer que la case */
+}
+
+/* La case à cocher */
+.option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px; /* Espace entre la case et le texte */
+    cursor: pointer;
+    
+    /* Propriété moderne pour changer la couleur bleue native */
+    accent-color: var(--primary-color); 
+    
+    /* Petit ajustement pour enlever les marges par défaut */
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Petit effet au survol de la ligne pour faire joli */
+.option:hover {
+    color: var(--primary-color);
+}
+/* --- 6. BOUTON SUBMIT --- */
+.submit {
+    margin-top: 10px;
+}
+
+.submit input[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.submit input[type="submit"]:hover {
+    background-color: var(--primary-hover);
+}
+
+.submit input[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* --- 7. MESSAGE DU VALIDATEUR --- */
+.resultat p {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: var(--radius);
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border-left: 5px solid var(--error-text);
+    
+    /* CRUCIAL : Permet d'interpréter les \n du PHP comme des retours à la ligne */
+    white-space: pre-line; 
+    line-height: 1.6;
+}
+
+/* Si le message est vide, on cache la div pour éviter un carré vide */
+.resultat p:empty {
+    display: none;
+}
