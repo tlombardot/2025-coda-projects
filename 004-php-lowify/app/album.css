@@ -1,0 +1,130 @@
+:root {
+    --bg-dark: #121212;
+    --bg-card-hover: #2a2a2a;
+    --text-main: #FFFFFF;
+    --text-muted: #B3B3B3;
+    --accent: #1DB954;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding-bottom: 50px;
+}
+
+/* --- HEADER ALBUM --- */
+.album-header {
+    background: linear-gradient(to bottom, #505050 0%, var(--bg-dark) 100%);
+    padding: 60px 40px 30px; 
+    display: flex;
+    align-items: flex-end; 
+    gap: 32px; 
+}
+
+.cover-img {
+    width: 232px;
+    height: 232px;
+    object-fit: cover;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6); 
+}
+
+.album-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.album-info h1 {
+    font-size: 4rem; 
+    font-weight: 900;
+    margin: 10px 0;
+    line-height: 1;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.artist-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.artist-link:hover {
+    text-decoration: underline;
+}
+
+/* --- LISTE DES CHANSONS --- */
+.song-container {
+    padding: 20px 40px;
+    max-width: 1200px;
+}
+
+
+.song-info {
+    display: grid;
+    grid-template-columns: 1fr 100px 60px; 
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 4px;
+    color: var(--text-muted);
+    transition: background-color 0.2s;
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+}
+
+.song-info:hover {
+    background-color: var(--bg-card-hover);
+    color: var(--text-main); 
+}
+
+/* Le titre de la chanson */
+.song-info p:first-child {
+    font-size: 1rem;
+    color: var(--text-main);
+    font-weight: 500;
+    margin: 0;
+}
+
+/* La note */
+.song-info p:nth-child(2) {
+    color: var(--accent); 
+    font-weight: bold;
+    margin: 0;
+}
+
+/* La durée */
+.song-info p:last-child {
+    text-align: right;
+    font-variant-numeric: tabular-nums; 
+    margin: 0;
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    .album-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .cover-img { width: 180px; height: 180px; }
+    .album-info h1 { font-size: 2.5rem; }
+}
+
+.song-info {
+    display: grid;
+    grid-template-columns: 1fr 60px 60px; 
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.song-info:hover {
+    background-color: #2a2a2a;
+}

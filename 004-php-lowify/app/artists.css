@@ -1,0 +1,101 @@
+:root {
+    --bg-body: #121212;
+    --bg-card: #181818;
+    --bg-card-hover: #282828;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B3B3B3;
+    --accent: #1DB954; 
+    --transition: all 0.3s ease;
+}
+
+body {
+    background-color: var(--bg-body);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-primary);
+    margin: 0;
+    padding: 20px;
+}
+
+/* En-tête */
+.header-title {
+    margin-bottom: 40px;
+    padding-left: 10px;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #fff, #b3b3b3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header-title p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* La Grille (Grid) */
+.artist-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 24px;
+    width: 100%;
+}
+
+/* La Carte Artiste */
+.artist-card {
+    background-color: var(--bg-card);
+    padding: 16px;
+    border-radius: 8px;
+    transition: var(--transition);
+    cursor: pointer;
+    border: 1px solid transparent; 
+    text-align: left; 
+}
+
+/* Effet de survol sur la carte */
+.artist-card:hover {
+    background-color: var(--bg-card-hover);
+    transform: translateY(-6px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* L'image */
+.artist-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover; 
+    border-radius: 6px;  
+    margin-bottom: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: var(--transition);
+}
+
+/* Effet sur l'image au survol */
+.artist-card:hover img {
+    opacity: 0.9;
+}
+
+/* Le texte (Nom de l'artiste) */
+.artist-card p {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.artist-card p::after {
+    content: "Artists";
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-top: 4px;
+}

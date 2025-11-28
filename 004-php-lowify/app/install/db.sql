@@ -3382,6 +3382,37 @@ VALUES (
 /*!40000 ALTER TABLE `song` ENABLE KEYS */
 ;
 UNLOCK TABLES;
+
+
+ALTER TABLE `song`
+    ADD COLUMN `is_liked` tinyint(1) NOT NULL DEFAULT 0
+    AFTER `duration`;
+
+DROP TABLE IF EXISTS `playlist`;
+DROP TABLE IF EXISTS `x_playlist_song`;
+
+CREATE TABLE `playlist` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `duration` int NOT NULL DEFAULT 0,
+    `nb_song` int NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `id` (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 379 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE `x_playlist_song` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `song_id` int NOT NULL,
+    `playlist_id` int NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `id` (`id`),
+    KEY `song_id` (`song_id`),
+    KEY `playlist_id` (`playlist_id`),
+    CONSTRAINT `xps_fk_1` FOREIGN KEY (`song_id`) REFERENCES `song` (`id`),
+    CONSTRAINT `xps_fk2` FOREIGN KEY (`playlist_id`) REFERENCES `playlist` (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 379 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */
 ;
 

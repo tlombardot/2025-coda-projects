@@ -1,0 +1,146 @@
+:root {
+    --bg-dark: #121212;
+    --bg-card: #181818;
+    --bg-card-hover: #282828;
+    --text-main: #FFFFFF;
+    --text-muted: #B3B3B3;
+    --accent: #1DB954;
+    --accent-hover: #1ed760;
+    --danger: #e91429;
+    --danger-hover: #c41225;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px 40px 100px 40px;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+/* --- GRILLE --- */
+.playlist-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 24px;
+}
+
+/* --- CARTE PLAYLIST --- */
+.playlist {
+    background-color: var(--bg-card);
+    padding: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 280px; 
+    position: relative;
+    text-decoration: none;
+}
+
+.playlist:hover {
+    background-color: var(--bg-card-hover);
+    transform: translateY(-5px);
+}
+
+/* Fausse pochette */
+.playlist::before {
+    content: "♫";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: rgba(255,255,255,0.2);
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: linear-gradient(135deg, #454545 0%, #2a2a2a 100%);
+    border-radius: 4px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* Variante de couleur */
+.playlist:nth-child(odd)::before { background: linear-gradient(135deg, #1DB954 0%, #10662e 100%); }
+.playlist:nth-child(3n)::before { background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%); }
+
+/* --- TEXTES --- */
+.playlist-title {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.playlist-title:hover {
+    text-decoration: underline;
+}
+
+.playlist-song, .playlist-duration {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.playlist-duration {
+    font-size: 0.8rem;
+    margin-top: 4px;
+    margin-bottom: 15px; 
+}
+
+/* --- BOUTON DELETE --- */
+.btn-delete {
+    margin-top: auto; 
+    
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: var(--danger);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid var(--danger);
+    padding: 8px 0;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.btn-delete:hover {
+    background-color: var(--danger);
+    color: white;
+}
+
+/* --- BOUTON CREATE --- */
+.create-container {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center; 
+    width: 100%;
+}
+
+.btn-create {
+    background-color: var(--accent);
+    color: #000; 
+    text-decoration: none;
+    padding: 16px 48px;
+    border-radius: 50px; 
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0 4px 15px rgba(29, 185, 84, 0.4); 
+}
+
+.btn-create:hover {
+    transform: scale(1.05);
+    background-color: var(--accent-hover);
+}
