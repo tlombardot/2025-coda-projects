@@ -2,7 +2,7 @@
 
 require_once "inc/page.inc.php";
 require_once "inc/database.inc.php";
-require_once "database.php";
+require_once "utils.php";
 
 $db = null;
 
@@ -11,17 +11,21 @@ $db = null;
 
 $db = InitDatabase();
 
+$playlists = RequestSQL(<<<SQL
+    SELECT 
+        playlist.id AS id, 
+        playlist.name AS name, 
+        COUNT(song.id) AS num_song, 
+        COALESCE(SUM(song.duration), 0) AS duration
+    FROM playlist 
+    LEFT JOIN x_playlist_song ON playlist.id = x_playlist_song.playlist_id 
+    LEFT JOIN song ON x_playlist_song.song_id = song.id
+    GROUP BY playlist.id 
+    ORDER BY playlist.id DESC 
+    LIMIT 100
+    SQL,$db);
 
-try{
-    $playlists = $db->executeQuery(<<<SQL
-    SELECT x_playlist_song.id AS id, playlist.name AS name, COUNT(song.id) AS num_song, SUM(song.duration) AS duration
-    FROM x_playlist_song JOIN playlist ON x_playlist_song.playlist_id = playlist.id JOIN song ON x_playlist_song.song_id = song.id
-    GROUP BY x_playlist_song.id LIMIT 100
-    SQL);
-    
-}catch (PDOException $es){
-    echo "Error Request". $es->getMessage();
-}
+//Affichage HTML
 
 $html = <<<HTML
     <h1>Playlist</h1>

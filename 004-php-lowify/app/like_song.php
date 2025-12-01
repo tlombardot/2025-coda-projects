@@ -2,7 +2,7 @@
 
 require_once "inc/page.inc.php";
 require_once "inc/database.inc.php";
-require_once "database.php";
+require_once "utils.php";
 
 $host='mysql';
 $dbname='lowify';
@@ -25,16 +25,11 @@ $db = InitDatabase();
 
 //Verification song
 
-try{
-    $songs = $db->executeQuery(<<<SQL
+$songs = RequestSQL(<<<SQL
     SELECT *
     FROM song WHERE id = $id 
     LIMIT 100
-    SQL);
-    
-}catch (PDOException $es){
-    echo "Error Request". $es->getMessage();
-}
+    SQL,$db);
 
 if(empty($songs)){
     header("Location: error.php?msg=This song don't exist");
@@ -43,15 +38,11 @@ if(empty($songs)){
 
 //Changement isLiked 
 
-try{
-    $db->executeQuery(<<<SQL
+RequestSQL(<<<SQL
     UPDATE song 
     SET is_liked = 1 - is_liked 
     WHERE id = $id;
-    SQL);
-}catch (PDOException $el){
-    echo "Error Request". $el->getMessage();
-}
+    SQL,$db);
 
 //Redirection
 

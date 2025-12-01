@@ -2,7 +2,7 @@
 
 require_once "inc/page.inc.php";
 require_once "inc/database.inc.php";
-require_once "database.php";
+require_once "utils.php";
 
 
 $db = null;
@@ -18,14 +18,9 @@ HTML;
 
 $db = InitDatabase();
 
-try{
-    $artists = $db->executeQuery(<<<SQL
+$artists = RequestSQL(<<<SQL
     SELECT id, name, cover FROM artist
-    SQL);
-    
-}catch (PDOException $e){
-    echo "Error Request". $e->getMessage();
-}
+    SQL,$db);
 
 if (empty($artists)){
     header("Location: error.php?msg=This artist don't exist");

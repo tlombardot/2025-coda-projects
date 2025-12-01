@@ -2,7 +2,7 @@
 
 require_once "inc/page.inc.php";
 require_once "inc/database.inc.php";
-require_once "database.php";
+require_once "utils.php";
 
 $db = null;
 
@@ -15,17 +15,12 @@ if (empty($id)){
 
 $db = InitDatabase();
 
-
-try{
-    $albums = $db->executeQuery(<<<SQL
+$albums = RequestSQL(<<<SQL
     SELECT album.name AS album_name,album.cover AS album_cover,album.release_date,artist.name AS artist_name,
     artist.id AS artist_id,song.name AS song_name,song.note,DATE_FORMAT(SEC_TO_TIME(song.duration), '%i:%s') AS formatted_duration
     FROM song JOIN album ON song.album_id = album.id JOIN artist ON album.artist_id = artist.id WHERE album_id = $id ORDER by song.id ASC;
-    SQL);
-    
-}catch (PDOException $ea){
-    echo "Error Request". $ea->getMessage();
-}
+    SQL,$db);
+
 
 if (empty($albums)){
     header("Location: error.php?msg=This album don't exist");

@@ -1,0 +1,182 @@
+:root {
+    --bg-dark: #121212;
+    --bg-card-hover: #2a2a2a;
+    --text-main: #FFFFFF;
+    --text-muted: #B3B3B3;
+    --accent: #1DB954;
+    --danger: #e91429;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding-bottom: 50px;
+}
+
+/* --- HEADER --- */
+.playlist-header {
+    background: linear-gradient(to bottom, #4b4b4b 0%, var(--bg-dark) 100%);
+    padding: 60px 40px 30px;
+    display: flex;
+    align-items: flex-end;
+    gap: 32px;
+}
+
+/* Fausse pochette géante */
+.playlist-cover-placeholder {
+    width: 232px;
+    height: 232px;
+    background: linear-gradient(135deg, #454545 0%, #2a2a2a 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.2);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    cursor: default;
+}
+
+.playlist-info h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 10px 0;
+    line-height: 1;
+}
+
+.type {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.meta {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* --- TRACKLIST --- */
+.tracklist-container {
+    padding: 20px 40px;
+}
+
+.tracklist-header {
+    display: grid;
+    /* Colonnes : # | Titre | Note | Durée | Action */
+    grid-template-columns: 40px 1fr 100px 80px 60px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.align-right { text-align: right; }
+
+.track-item {
+    display: grid;
+    grid-template-columns: 40px 1fr 100px 80px 60px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 4px;
+    color: var(--text-muted);
+    transition: background 0.2s;
+}
+
+.track-item:hover {
+    background-color: var(--bg-card-hover);
+    color: var(--text-main);
+}
+
+.track-number { font-size: 1rem; }
+
+/* Info Titre + Artiste + Image */
+.track-main {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    overflow: hidden;
+}
+
+.track-img {
+    width: 40px; height: 40px;
+    object-fit: cover;
+}
+
+.track-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.track-title a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+}
+.track-title a:hover { text-decoration: underline; }
+
+.track-artist { font-size: 0.85rem; }
+
+.track-note { color: var(--accent); }
+
+.track-duration { 
+    text-align: right; 
+    font-variant-numeric: tabular-nums; 
+}
+
+/* --- BOUTON SUPPRIMER --- */
+.track-action {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-remove {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 1.2rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.btn-remove:hover {
+    color: var(--danger);
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* --- ETATS VIDES & NAVIGATION --- */
+.empty-state {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+.empty-state a { color: var(--text-main); }
+
+.btn-back-pl {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+}
+.btn-back-pl:hover { color: var(--text-main); }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .playlist-header { flex-direction: column; align-items: center; text-align: center; }
+    .tracklist-header, .track-item {
+        grid-template-columns: 1fr 60px 40px; 
+    }
+    .track-number, .track-note, .tracklist-header span:nth-child(1), .tracklist-header span:nth-child(3) {
+        display: none;
+    }
+}

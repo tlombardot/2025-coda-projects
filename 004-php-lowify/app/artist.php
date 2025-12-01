@@ -2,64 +2,55 @@
 
 require_once "inc/page.inc.php";
 require_once "inc/database.inc.php";
-require_once "database.php";
+require_once "utils.php";
 
 $db = null;
 
 $id = $_GET['id'] ?? "";
 
-if (empty($id)){
+if (empty($id)) {
     header("Location: error.php?msg=This artist don't exist");
     exit();
 }
+
+//Init Database
 
 $db = InitDatabase();
 
+//Requête SQL
 
-try{
-    $artists = $db->executeQuery(<<<SQL
+$artists = RequestSQL(<<<SQL
     SELECT * FROM artist WHERE id=$id LIMIT 100
-    SQL);
-    
-}catch (PDOException $e){
-    echo "Error Request". $e->getMessage();
-}
+    SQL, $db);
 
-if (empty($artists)){
+if (empty($artists)) {
     header("Location: error.php?msg=This artist don't exist");
     exit();
 }
 
-try{
-    $songs = $db->executeQuery(<<<SQL
-    SELECT song.id, song.name, song.duration, song.note, album.cover FROM song JOIN album ON song.album_id = album.id 
+$songs = RequestSQL(<<<SQL
+    SELECT song.id, song.name, song.duration, song.note,song.is_liked, album.cover FROM song JOIN album ON song.album_id = album.id 
     WHERE song.album_id = $id ORDER BY note DESC LIMIT 5
-    SQL);
-    
-}catch (PDOException $es){
-    echo "Error Request". $es->getMessage();
-}
+    SQL, $db);
 
-if (empty($songs)){
+if (empty($songs)) {
     header("Location : error.php?message= This song don't exist");
     exit;
 }
 
-try{
-    $albums = $db->executeQuery(<<<SQL
+$albums = RequestSQL(<<<SQL
     SELECT id,name,cover,release_date FROM album WHERE artist_id=$id 
-    SQL);
-    
-}catch (PDOException $ea){
-    echo "Error Request". $ea->getMessage();
-}
+    SQL, $db);
 
-if (empty($albums)){
+
+if (empty($albums)) {
     header("Location : error.php?message=This album don't exist");
     exit;
 }
 
-foreach ($artists as $artist){
+//Affichage HTML
+
+foreach ($artists as $artist) {
     $name = $artist["name"];
     $biography = $artist["biography"];
     $cover = $artist["cover"];
@@ -67,34 +58,13 @@ foreach ($artists as $artist){
 }
 
 
-function format_monthly_listeners($monthly_listeners):string{
-    if ($monthly_listeners > 1000000000){
-        $formatted = $monthly_listeners/1000000000;
-        $suffix = "B";
-    }
-    elseif ($monthly_listeners > 1000000){
-        $formatted = $monthly_listeners/1000000;
-        $suffix = "M";
-    }
-    elseif ($monthly_listeners > 1000){
-        $formatted = $monthly_listeners/1000;
-        $suffix = "K";
-    }
-
-    if ($formatted == floor($formatted)){
-        return "+". floor($formatted). $suffix;
-    }else{
-        return "+". number_format($formatted, 1). $suffix;
-    }
-    
-    
-}
-
-
 $monthly_listeners = format_monthly_listeners($monthly_listeners);
 
 
-$html =<<<HTML
+$html = <<<HTML
+    <div class="navigation-top">
+        <a href="index.php" class="btn-back">← Home</a>
+    </div>
     <div class="artist-header">
         <div class="header-content">
             <img src="$cover" alt="$name" class="artist-img shadow-lg">
@@ -118,31 +88,44 @@ $html .= '<div class="section-title"><h2>Popular</h2></div>';
 $html .= '<div class="song-container">';
 
 
-foreach ($songs as $song){
+foreach ($songs as $song) {
+    $id = $song["id"];
     $nameSong = $song["name"];
     $durationSong = $song["duration"];
-    $minute = floor($durationSong/60);
-    $secondes = $durationSong %60;
+    $durationSong = $song["duration"];
+    $formattedTime = gmdate("i:s", $durationSong);
     $noteSong = $song["note"];
     $coverSong = $song["cover"];
+    $isLiked = $song["is_liked"];
+
+    $heartClass = ($isLiked == 1) ? 'liked' : 'not-liked';
+    $heartIcon = ($isLiked == 1) ? '♥' : '♡';
+
     $html .= <<<HTML
             <div class="list-song">
                 <div class="song-left">
-                    <img src="$coverSong">
-                    <p>$nameSong</p>
+                    <img src="$coverSong" alt="cover">
+                    <span class="song-name">$nameSong</span>
                 </div>
-                <div class="detail">
+                
+                <div class="song-right">
                     <span class="note">★ $noteSong</span>
-                    <span class="time">$minute:$secondes</span>
+                    <span class="time">$formattedTime</span>
+                    
+                    <div class="song-actions">
+                        <a href="add_to_playlist.php?id=$id" class="btn-icon btn-add" title="Add to playlist">+</a>
+                        <a href="like_song.php?id=$id" class="btn-icon btn-like $heartClass" title="Like">$heartIcon</a>
+                    </div>
                 </div>
             </div>
-    HTML;
+        HTML;
 }
+$html .= '</div>';
 
 $html .= '<div class="section-title"><h2>Discographie</h2></div>';
 $html .= '<div class="album-container">';
 
-foreach ($albums as $album){
+foreach ($albums as $album) {
     $idAlbum = $album["id"];
     $nameAlbum = $album["name"];
     $coverAlbum = $album["cover"];
@@ -150,7 +133,7 @@ foreach ($albums as $album){
 
     $html .= <<<HTML
             <div class="list-album">
-                <a href ="./album.php?id=$idAlbum">
+                <a style ="text-decoration: none; color: white;" href ="./album.php?id=$idAlbum">
                 <img src="$coverAlbum">
                 <p class="album-title">$nameAlbum</p>
                 <p class="album-date">Sortie : $releaseAlbum</p>
@@ -162,11 +145,7 @@ $html .= '</div>';
 
 
 
-
-
 echo (new HTMLPage("Lowify - $name"))
-        ->addContent($html)
-        ->addStylesheet("./artist.css")
-        ->render();
-
-
+    ->addContent($html)
+    ->addStylesheet("./artist.css")
+    ->render();

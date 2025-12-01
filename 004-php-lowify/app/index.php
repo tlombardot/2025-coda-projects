@@ -2,61 +2,53 @@
 
 require_once "inc/page.inc.php";
 require_once "inc/database.inc.php";
-require_once "database.php";
+require_once "utils.php";
 
 $db = null;
 
+//Requête SQL
 
 $db = InitDatabase();
 
-try{
-    $topartists = $db->executeQuery(<<<SQL
+$topartists = RequestSQL(<<<SQL
     SELECT id, name, monthly_listeners, cover FROM artist  ORDER BY monthly_listeners DESC LIMIT 5 
-    SQL);
-    
-}catch (PDOException $e){
-    echo "Error Request". $e->getMessage();
-}
+    SQL, $db);
+
+
 
 if (empty($topartists)){
     header("Location: error.php?msg=This artist don't exist");
     exit();
 }
 
-try{
-    $recentAlbums = $db->executeQuery(<<<SQL
+$recentAlbums = RequestSQL(<<<SQL
     SELECT id, name, cover FROM album  ORDER BY release_date DESC LIMIT 5 
-    SQL);
-    
-}catch (PDOException $er){
-    echo "Error Request". $er->getMessage();
-}
+    SQL, $db);
 
 if (empty($recentAlbums)){
     header("Location: error.php?msg=This album don't exist");
     exit();
 }
 
-try{
-    $topalbums = $db->executeQuery(<<<SQL
+$topalbums = RequestSQL(<<<SQL
     SELECT album.id, album.name, ROUND(AVG(note),1) AS moyenne_note, cover FROM album 
     JOIN song ON song.album_id = album.id GROUP BY album.id 
     ORDER BY ROUND(AVG(note),1) DESC LIMIT 5
-    SQL);
-    
-}catch (PDOException $ea){
-    echo "Error Request". $ea->getMessage();
-}
+    SQL, $db);
 
 if (empty($topalbums)){
     header("Location: error.php?msg=This album don't exist");
     exit();
 }
 
+//Affichage HTML
+
 $html = <<<HTML
     <div class="header-container">
-        <h1>Accueil</h1>
-        
+        <h1>Lowify</h1>
+        <a href="playlists.php" class="btn-library">
+                <span>My Playlists</span>
+        </a>
         <div class="search-wrapper">
             <form action="search.php" method="GET" class="search-form">
                 <button type="submit" class="search-btn">
@@ -73,19 +65,6 @@ $html = <<<HTML
 HTML;
 
 
-function format_monthly_listeners($monthly_listeners):string{
-    $monthly = "";
-    if ($monthly_listeners > 1000){
-        $monthly = $monthly_listeners%1000 . "K";
-    }
-    if ($monthly_listeners > 1000000){
-        $monthly = $monthly_listeners%1000 . "M";
-    }
-    if ($monthly_listeners > 1000000000){
-        $monthly = $monthly_listeners%1000 . "B";
-    }
-    return $monthly;
-}
 
 
 foreach($topartists as $topartist){

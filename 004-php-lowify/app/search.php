@@ -2,7 +2,7 @@
 
 require_once "inc/page.inc.php";
 require_once "inc/database.inc.php";
-require_once "database.php";
+require_once "utils.php";
 
 $db = null;
 
@@ -14,41 +14,29 @@ $search = $_GET['search'] ?? "";
 //Requête SQL
 $db = InitDatabase();
 
-$searchTerm = "%". $search . "%";
-$params = ['term' => $searchTerm];
 
-try{
-    $artists = $db->executeQuery(<<<SQL
+$artists = RequestSQL(<<<SQL
     SELECT *
     FROM artist
     WHERE (
-    MATCH(name) AGAINST(:term IN NATURAL LANGUAGE MODE) OR
-    name LIKE :term
+    MATCH(name) AGAINST('$search' IN NATURAL LANGUAGE MODE) OR
+    name LIKE '%$search%'
     )
-    SQL, $params);
-    
-}catch (PDOException $ea){
-    echo "Error Request". $ea->getMessage();
-}
+    SQL, $db);
 
-try{
-    $albums = $db->executeQuery(<<<SQL
+
+$albums = RequestSQL(<<<SQL
     SELECT *
     FROM album
     WHERE (
-    MATCH(name) AGAINST(:term IN NATURAL LANGUAGE MODE) OR
-    name LIKE :term
+    MATCH(name) AGAINST('$search' IN NATURAL LANGUAGE MODE) OR
+    name LIKE '%$search%'
     )
-    SQL, $params);
-    
-}catch (PDOException $ea){
-    echo "Error Request". $ea->getMessage();
+    SQL,$db);
 
-}
-
-try{
-    $songs = $db->executeQuery(<<<SQL
+$songs = RequestSQL(<<<SQL
     SELECT 
+        song.id,
         song.name, 
         song.duration, 
         song.note, 
@@ -58,12 +46,11 @@ try{
     FROM song 
     JOIN album ON song.album_id = album.id
     JOIN artist ON album.artist_id = artist.id
-    WHERE song.name LIKE :term ORDER BY song.note DESC LIMIT 20
-    SQL, $params);
-    
-}catch (PDOException $es){
-    echo "Error Request". $es->getMessage();
-}
+    WHERE (
+    MATCH(song.name) AGAINST('$search' IN NATURAL LANGUAGE MODE) OR
+    song.name LIKE '%$search%'
+    )  ORDER BY song.note DESC LIMIT 20
+    SQL,$db);
 
 //Affichage HTML
 
@@ -144,6 +131,7 @@ if (!empty($songs)){
     HTML;
 }
 foreach ($songs as $song) {
+        $id = $song["id"];
         $name = $song["name"];
         $artistName = $song['artist_name'];
         $albumName = $song['album_name'];
@@ -160,7 +148,7 @@ foreach ($songs as $song) {
                     
                     <div style="display:flex; flex-direction:column; justify-content:center; align-items: flex-start; overflow:hidden;">
                         <p style="margin:0; font-weight:600; color:white; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; max-width:100%;">
-                            $name
+                            <a style= "color: white" href="./add_to_playlist.php?id=$id">$name</a>
                         </p>
                         <p style="margin:0; font-size:0.85rem; color:#b3b3b3; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; max-width:100%;">
                             $artistName • $albumName

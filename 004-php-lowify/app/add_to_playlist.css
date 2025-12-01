@@ -1,0 +1,141 @@
+:root {
+    --bg-dark: #121212;
+    --bg-card: #181818;
+    --text-main: #FFFFFF;
+    --text-muted: #B3B3B3;
+    --accent: #1DB954;
+    --accent-hover: #1ed760;
+    --error: #e91429;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.add-container {
+    background-color: var(--bg-card);
+    padding: 40px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.header-box {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.btn-back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+h1 {
+    margin: 10px 0;
+    font-size: 1.8rem;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+.subtitle strong {
+    color: var(--accent);
+}
+
+/* --- Formulaire --- */
+.add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* Style du Select custom */
+.select-wrapper {
+    position: relative;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    background-color: #333;
+    border: 1px solid transparent;
+    color: white;
+    font-size: 1rem;
+    appearance: none; /* Enlève le style par défaut du navigateur */
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.arrow {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none; /* Pour cliquer au travers */
+    font-size: 0.8rem;
+}
+
+/* Bouton */
+.btn-submit {
+    background-color: var(--accent);
+    color: black;
+    border: none;
+    padding: 14px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: var(--accent-hover);
+    transform: scale(1.02);
+}
+
+/* --- Messages --- */
+.message {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.msg-success {
+    background-color: rgba(29, 185, 84, 0.1);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+}
+
+.msg-error {
+    background-color: rgba(233, 20, 41, 0.1);
+    border: 1px solid var(--error);
+    color: var(--error);
+}
