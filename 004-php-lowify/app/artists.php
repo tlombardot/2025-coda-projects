@@ -10,6 +10,9 @@ $db = null;
 $artists = [];
 
 $html = <<<HTML
+        <div class="navigation-top">
+            <a href="index.php" class="btn-back">← Home</a>
+        </div>
         <h1>Artists</h1>
         <div class='artist-list'>
 </html>

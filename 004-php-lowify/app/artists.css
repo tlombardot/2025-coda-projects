@@ -99,3 +99,23 @@ h1 {
     font-weight: 400;
     margin-top: 4px;
 }
+
+.navigation-top {
+    padding: 20px 40px 0 40px;
+}
+
+.btn-back {
+    display: inline-block;
+    background-color: rgba(255,255,255,0.1);
+    color: var(--text-main);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.btn-back:hover {
+    background-color: rgba(255,255,255,0.2);
+}

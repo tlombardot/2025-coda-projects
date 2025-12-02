@@ -42,7 +42,7 @@ h1 {
     text-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* Bouton Playlist (Celui que tu as sélectionné) */
+/* Bouton Playlist */
 .btn-library {
     background-color: rgba(255, 255, 255, 0.1);
     color: var(--text-main);
@@ -52,13 +52,13 @@ h1 {
     font-weight: 700;
     font-size: 0.95rem;
     border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px); /* Effet flou derrière le bouton */
+    backdrop-filter: blur(10px); 
     transition: all 0.3s ease;
 }
 
 .btn-library:hover {
     background-color: var(--text-main);
-    color: #000000; /* Texte noir sur fond blanc au survol */
+    color: #000000; 
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
@@ -71,7 +71,7 @@ h1 {
 }
 
 .search-form {
-    background-color: rgba(0, 0, 0, 0.3); /* Plus foncé pour le contraste */
+    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     border-radius: 500px;
@@ -170,7 +170,7 @@ h2 {
 
 .artist-card .img-wrapper img {
     border-radius: 50%;
-    width: 140px; height: 140px; /* Taille fixe pour les cercles parfaits */
+    width: 140px; height: 140px; 
     margin: 0 auto;
 }
 

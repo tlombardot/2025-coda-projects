@@ -22,7 +22,7 @@ if (empty($topartists)){
 }
 
 $recentAlbums = RequestSQL(<<<SQL
-    SELECT id, name, cover FROM album  ORDER BY release_date DESC LIMIT 5 
+    SELECT id, name, cover FROM album  ORDER BY release_date DESC LIMIT 5
     SQL, $db);
 
 if (empty($recentAlbums)){
@@ -31,8 +31,8 @@ if (empty($recentAlbums)){
 }
 
 $topalbums = RequestSQL(<<<SQL
-    SELECT album.id, album.name, ROUND(AVG(note),1) AS moyenne_note, cover FROM album 
-    JOIN song ON song.album_id = album.id GROUP BY album.id 
+    SELECT album.id, album.name, ROUND(AVG(note),1) AS moyenne_note, cover FROM album
+    JOIN song ON song.album_id = album.id GROUP BY album.id
     ORDER BY ROUND(AVG(note),1) DESC LIMIT 5
     SQL, $db);
 
@@ -48,6 +48,9 @@ $html = <<<HTML
         <h1>Lowify</h1>
         <a href="playlists.php" class="btn-library">
                 <span>My Playlists</span>
+        </a>
+        <a href="artists.php" class="btn-library">
+                <span>Artists</span>
         </a>
         <div class="search-wrapper">
             <form action="search.php" method="GET" class="search-form">
