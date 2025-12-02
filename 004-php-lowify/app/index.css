@@ -2,14 +2,14 @@
     --text-main: #FFFFFF;
     --text-muted: #B3B3B3;
     --accent: #1DB954;
-    --card-bg: rgba(255, 255, 255, 0.05); /* Fond semi-transparent */
+    --card-bg: rgba(255, 255, 255, 0.05);
     --card-bg-hover: rgba(255, 255, 255, 0.15);
 }
 
 body {
-    /* DÉGRADÉ GRIS/NOIR (Gris anthracite clair vers Noir profond) */
+    /* DÉGRADÉ GRIS/NOIR*/
     background: linear-gradient(180deg, #404040 0%, #121212 40%, #000000 100%);
-    background-attachment: fixed; /* Le dégradé reste fixe quand on scroll */
+    background-attachment: fixed; 
     color: var(--text-main);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -39,7 +39,6 @@ h1 {
     font-weight: 900;
     margin: 0;
     letter-spacing: -1px;
-    /* Petit effet d'ombre pour ressortir sur le gris clair */
     text-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 

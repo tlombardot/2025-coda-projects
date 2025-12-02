@@ -28,6 +28,9 @@ $playlists = RequestSQL(<<<SQL
 //Affichage HTML
 
 $html = <<<HTML
+    <div class="navigation-top">
+        <a href="index.php" class="btn-back">← Home</a>
+    </div>
     <h1>Playlist</h1>
     <section class = "playlist-container">
 HTML;

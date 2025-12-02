@@ -4,20 +4,42 @@
     --text-main: #FFFFFF;
     --text-muted: #B3B3B3;
     --accent: #1DB954;
+    --danger: #e91429;
 }
 
 body {
     background-color: var(--bg-dark);
     color: var(--text-main);
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding-bottom: 50px;
+    padding-bottom: 60px;
+}
+
+/* --- NAVIGATION RETOUR --- */
+.navigation-top {
+    padding: 20px 40px 0 40px;
+}
+
+.btn-back {
+    display: inline-block;
+    background-color: rgba(255,255,255,0.1);
+    color: var(--text-main);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.btn-back:hover {
+    background-color: rgba(255,255,255,0.2);
 }
 
 /* --- HEADER ALBUM --- */
 .album-header {
     background: linear-gradient(to bottom, #505050 0%, var(--bg-dark) 100%);
-    padding: 60px 40px 30px; 
+    padding: 40px 40px 30px; 
     display: flex;
     align-items: flex-end; 
     gap: 32px; 
@@ -35,19 +57,34 @@ body {
     flex-direction: column;
 }
 
+.type {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
 .album-info h1 {
     font-size: 4rem; 
     font-weight: 900;
-    margin: 10px 0;
+    margin: 0 0 10px 0;
     line-height: 1;
 }
 
 .meta {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.mini-artist-img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .artist-link {
@@ -56,9 +93,9 @@ body {
     font-weight: 700;
 }
 
-.artist-link:hover {
-    text-decoration: underline;
-}
+.artist-link:hover { text-decoration: underline; }
+
+.bullet { font-size: 0.8rem; }
 
 /* --- LISTE DES CHANSONS --- */
 .song-container {
@@ -66,44 +103,84 @@ body {
     max-width: 1200px;
 }
 
-
 .song-info {
-    display: grid;
-    grid-template-columns: 1fr 100px 60px; 
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 15px;
     border-radius: 4px;
     color: var(--text-muted);
     transition: background-color 0.2s;
-    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .song-info:hover {
     background-color: var(--bg-card-hover);
-    color: var(--text-main); 
+    color: var(--text-main);
 }
 
-/* Le titre de la chanson */
-.song-info p:first-child {
+/* Partie Gauche (Titre) */
+.song-left {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.song-title {
     font-size: 1rem;
     color: var(--text-main);
     font-weight: 500;
-    margin: 0;
 }
 
-/* La note */
-.song-info p:nth-child(2) {
-    color: var(--accent); 
-    font-weight: bold;
-    margin: 0;
+/* Partie Droite (Infos + Actions) */
+.song-right {
+    display: flex;
+    align-items: center;
+    gap: 25px; 
 }
 
-/* La durée */
-.song-info p:last-child {
-    text-align: right;
-    font-variant-numeric: tabular-nums; 
-    margin: 0;
+.note { color: var(--accent); font-weight: bold; }
+.time { font-variant-numeric: tabular-nums; min-width: 45px; text-align: right; }
+
+/* --- ACTIONS (Boutons) --- */
+.song-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
+
+.btn-icon {
+    text-decoration: none;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    transition: all 0.2s;
+    opacity: 0; /* Caché par défaut */
+}
+
+
+.song-info:hover .btn-icon { opacity: 1; }
+.song-info .btn-like.liked { opacity: 1; }
+
+/* Style Add (+) */
+.btn-add {
+    color: var(--text-muted);
+    border: 1px solid var(--text-muted);
+    font-size: 1.4rem;
+    line-height: 0;
+    padding-bottom: 4px;
+}
+.btn-add:hover { color: white; border-color: white; transform: scale(1.1); }
+
+/* Style Like (Coeur) */
+.btn-like { font-size: 1.5rem; }
+.btn-like.not-liked { color: var(--text-muted); }
+.btn-like.not-liked:hover { color: white; transform: scale(1.1); }
+.btn-like.liked { color: var(--danger); }
+.btn-like.liked:hover { transform: scale(1.1); }
 
 /* Responsive Mobile */
 @media (max-width: 768px) {
@@ -114,17 +191,8 @@ body {
     }
     .cover-img { width: 180px; height: 180px; }
     .album-info h1 { font-size: 2.5rem; }
-}
-
-.song-info {
-    display: grid;
-    grid-template-columns: 1fr 60px 60px; 
-    align-items: center;
-    padding: 10px 15px;
-    border-radius: 4px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.song-info:hover {
-    background-color: #2a2a2a;
+    
+    .song-info { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .song-right { width: 100%; justify-content: space-between; margin-top: 5px; }
+    .btn-icon { opacity: 1; } /* Toujours afficher les boutons sur mobile */
 }
