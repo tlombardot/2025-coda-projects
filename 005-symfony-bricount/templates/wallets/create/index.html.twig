@@ -1,0 +1,45 @@
+{% extends '_layout/in_app.html.twig' %}
+
+{% block title %}Créer un portefeuille{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+
+                {# Carte de formulaire #}
+                <div class="custom-card p-4">
+                    <div class="text-center mb-4">
+                        <h1 class="fw-bold text-dark">Nouveau Portefeuille</h1>
+                        <p class="text-muted">Créez un espace pour partager vos dépenses.</p>
+                    </div>
+
+                    {# Début du formulaire #}
+                    {{ form_start(form) }}
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-secondary">Nom du groupe</label>
+                        {# Affichage du champ avec gestion des erreurs #}
+                        {{ form_widget(form.label, {'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Ex: Vacances au ski...'}}) }}
+                        <div class="text-danger small mt-1">
+                            {{ form_errors(form.label) }}
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary-custom justify-content-center">
+                            Créer le portefeuille
+                        </button>
+
+                        <a href="{{ path('wallets_list') }}" class="btn btn-light text-muted mt-2">
+                            Annuler
+                        </a>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

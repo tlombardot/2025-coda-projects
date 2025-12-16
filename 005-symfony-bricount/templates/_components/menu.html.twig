@@ -1,0 +1,36 @@
+{% set route = app.request.attributes.get('_route') %}
+
+<nav class="navbar">
+    <div class="navbar-container">
+        {# Zone Gauche : Utilisateur #}
+        <div class="navbar-user">
+            <span class="user-greeting">Bonjour,</span>
+            <span class="user-name">{{ app.user.userIdentifier }}</span>
+        </div>
+
+        {# Zone Centre : Liens de navigation #}
+        <ul class="navbar-menu">
+            <li>
+                <a href="{{ path('wallets_list') }}" class="nav-link {{ route == 'wallets_list' ? 'active' : '' }}">
+                    <span class="icon">💼</span>
+                    <span class="label">Wallets</span>
+                </a>
+            </li>
+            <li>
+                {# Vérifie que la route 'settings' existe bien, sinon commente ce lien #}
+                <a href="{{ path('settings') }}" class="nav-link {{ route == 'settings' ? 'active' : '' }}">
+                    <span class="icon">⚙️</span>
+                    <span class="label">Settings</span>
+                </a>
+            </li>
+        </ul>
+
+        {# Zone Droite : Logout #}
+        <div class="navbar-actions">
+            <a href="{{ path('logout') }}" class="nav-link logout-link">
+                <span class="icon">🚪</span>
+                <span class="label">Déconnexion</span>
+            </a>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,111 @@
+{% extends '_layout/in_app.html.twig' %}
+
+{% block title %}Détail - {{ wallet.label }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+
+        {# --- En-tête de la page --- #}
+        <div class="wallet-header mb-4">
+            <div class="wallet-header-info">
+                <a href="{{ path('wallets_list') }}" class="back-link">
+                    <span class="arrow">←</span> Retour aux portefeuilles
+                </a>
+                <h1 class="wallet-title">{{ wallet.label }}</h1>
+                <div class="wallet-balance">
+                    <span class="label">Total dépensé :</span>
+                    <span
+                        class="amount">{{ (wallet.totalAmount / 100)|number_format(2, ',', ' ') }} <small>€</small></span>
+                </div>
+            </div>
+
+            <div class="wallet-header-actions">
+                <button class="btn btn-primary-custom shadow-sm">
+                    <span class="plus">+</span> Nouvelle dépense
+                </button>
+            </div>
+        </div>
+
+        {# --- Carte Principale --- #}
+        <div class="custom-card">
+
+            <div class="card-body p-0">
+                {% if expenses is empty %}
+                    {# État Vide Stylisé #}
+                    <div class="empty-state-detail">
+                        <div class="empty-icon">💸</div>
+                        <h4>Aucune dépense</h4>
+                        <p>Ce portefeuille est vide pour le moment.</p>
+                    </div>
+                {% else %}
+                    {# Tableau Stylisé #}
+                    <div class="table-responsive">
+                        <table class="table custom-table mb-0">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="th-desc">Description</th>
+                                <th scope="col" class="th-date">Date</th>
+                                <th scope="col" class="th-amount text-end">Montant</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for expense in expenses %}
+                                <tr>
+                                    <td class="td-desc">
+                                        <div class="desc-text">{{ expense.description }}</div>
+                                        <div class="user-badge">
+                                            Payé par <strong>{{ expense.createdBy.name }}</strong>
+                                        </div>
+                                    </td>
+                                    <td class="td-date">
+                                        <span class="date-main">{{ expense.createdDate|date('d M Y') }}</span>
+                                        <span class="date-time">{{ expense.createdDate|date('H:i') }}</span>
+                                    </td>
+                                    <td class="td-amount text-end">
+                                        {{ (expense.amount / 100)|number_format(2, ',', ' ') }} €
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+
+            {# --- Pagination --- #}
+            {% if totalPages > 1 %}
+                <div class="card-footer-custom">
+                    <nav>
+                        <ul class="custom-pagination">
+                            {# Précédent #}
+                            <li class="custom-page-item {{ currentPage == 1 ? 'disabled' }}">
+                                <a class="page-link"
+                                   href="{{ path('wallets_show', {uid: wallet.uuid, page: currentPage - 1, limit: limit}) }}">
+                                    &laquo;
+                                </a>
+                            </li>
+
+                            {# Numéros #}
+                            {% for i in 1..totalPages %}
+                                <li class="custom-page-item {{ currentPage == i ? 'active' }}">
+                                    <a class="page-link"
+                                       href="{{ path('wallets_show', {uid: wallet.uuid, page: i, limit: limit}) }}">
+                                        {{ i }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+
+                            {# Suivant #}
+                            <li class="custom-page-item {{ currentPage == totalPages ? 'disabled' }}">
+                                <a class="page-link"
+                                   href="{{ path('wallets_show', {uid: wallet.uuid, page: currentPage + 1, limit: limit}) }}">
+                                    &raquo;
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

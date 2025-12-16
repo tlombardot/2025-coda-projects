@@ -1,0 +1,521 @@
+/* Reset basique pour la navbar */
+.navbar {
+    background-color: #ffffff; /* Fond blanc */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    width: 100%;
+    position: sticky; /* Reste collé en haut lors du scroll */
+    top: 0;
+    z-index: 1000;
+    padding: 0 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Conteneur principal pour limiter la largeur et centrer */
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 70px; /* Hauteur fixe */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espace entre User, Menu et Logout */
+}
+
+/* --- Zone Utilisateur (Gauche) --- */
+.navbar-user {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    color: #333;
+}
+
+.user-greeting {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.user-name {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* --- Menu (Centre) --- */
+.navbar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px; /* Espace entre les liens */
+    height: 100%;
+}
+
+.navbar-menu li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* --- Liens --- */
+.nav-link {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espace entre icône et texte */
+}
+
+.nav-link:hover {
+    background-color: #f0f2f5;
+    color: #000;
+}
+
+/* État Actif (Page courante) */
+.nav-link.active {
+    background-color: #e3f2fd; /* Bleu très clair */
+    color: #0d6efd; /* Bleu Bootstrap */
+    font-weight: 600;
+}
+
+.nav-link .icon {
+    font-size: 1.2rem;
+}
+
+/* --- Zone Actions / Logout (Droite) --- */
+.navbar-actions {
+    display: flex;
+    align-items: center;
+}
+
+.logout-link {
+    color: #dc3545; /* Rouge pour la déconnexion */
+    border: 1px solid transparent;
+}
+
+.logout-link:hover {
+    background-color: #fdf2f2; /* Fond rouge très pâle */
+    color: #c82333;
+    border-color: #f5c6cb;
+}
+
+/* --- Responsive (Mobile) --- */
+@media (max-width: 768px) {
+    .label {
+        display: none; /* Cache le texte sur mobile, garde les icônes */
+    }
+
+    .navbar-container {
+        padding: 0 10px;
+    }
+
+    .navbar-menu {
+        gap: 10px;
+    }
+}
+
+/* =========================================
+   STYLE GLOBAL DE LA PAGE (suite du menu)
+   ========================================= */
+
+body {
+    background-color: #f8f9fa; /* Fond gris très clair pour faire ressortir les cartes blanches */
+    color: #2c3e50;
+}
+
+/* --- En-tête de page --- */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.2rem;
+    color: #1a202c;
+}
+
+/* Bouton de création */
+.btn-create {
+    background-color: #0d6efd;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+}
+
+.btn-create:hover {
+    background-color: #0b5ed7;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* --- Cartes Portefeuille (Wallet Card) --- */
+.wallet-card {
+    background: white;
+    border-radius: 16px;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02); /* Ombre très légère au repos */
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.wallet-card:hover {
+    transform: translateY(-5px); /* La carte remonte légèrement */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08); /* L'ombre grandit */
+    border-color: transparent;
+}
+
+/* En-tête de la carte */
+.wallet-card-header {
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wallet-label {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    color: #2d3748;
+}
+
+.wallet-badge {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.wallet-badge.member {
+    background-color: #e2e8f0;
+    color: #4a5568;
+}
+
+/* Corps de la carte */
+.wallet-card-body {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    flex-grow: 1; /* Pousse le footer vers le bas */
+}
+
+.wallet-balance-section {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.balance-label {
+    display: block;
+    font-size: 0.85rem;
+    color: #718096;
+    margin-bottom: 0.25rem;
+}
+
+.balance-amount {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2b6cb0; /* Bleu financier */
+    line-height: 1;
+}
+
+.balance-amount small {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #718096;
+    vertical-align: super;
+}
+
+.wallet-meta {
+    font-size: 0.8rem;
+    color: #a0aec0;
+    margin-top: 0.5rem;
+}
+
+/* Pied de carte (Bouton action) */
+.wallet-card-footer {
+    padding: 1rem 1.5rem;
+    background-color: #f7fafc;
+    border-top: 1px solid #edf2f7;
+    text-align: right;
+}
+
+.btn-details {
+    color: #3182ce;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.btn-details:hover {
+    color: #2c5282;
+    text-decoration: underline;
+}
+
+/* --- État Vide (Empty State) --- */
+.empty-state {
+    background: white;
+    border-radius: 16px;
+    padding: 4rem 2rem;
+    text-align: center;
+    border: 2px dashed #e2e8f0;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-weight: 700;
+    color: #4a5568;
+}
+
+.empty-state p {
+    color: #718096;
+}
+
+/* --- Pagination Personnalisée --- */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 1.5rem;
+}
+
+.custom-pagination {
+    display: flex;
+    gap: 0.5rem; /* Espace entre les boutons */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.custom-page-item .page-link {
+    border: none;
+    background-color: transparent;
+    color: #718096;
+    font-weight: 600;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px; /* Carré arrondi */
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.custom-page-item .page-link:hover {
+    background-color: #edf2f7;
+    color: #2d3748;
+}
+
+/* Page active (bleu) */
+.custom-page-item.active .page-link {
+    background-color: #3182ce;
+    color: white;
+    box-shadow: 0 4px 6px rgba(49, 130, 206, 0.3);
+}
+
+/* Boutons Précédent/Suivant désactivés */
+.custom-page-item.disabled .page-link {
+    opacity: 0.3;
+    pointer-events: none; /* Empêche le clic */
+}
+
+
+/* =========================================
+   PAGE DÉTAIL WALLET
+   ========================================= */
+
+/* --- En-tête (Header) --- */
+.wallet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Aligne le bouton avec le bas du titre */
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    color: #718096;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: #2d3748;
+}
+
+.back-link .arrow {
+    margin-right: 6px;
+    font-size: 1.1em;
+}
+
+.wallet-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0;
+    color: #1a202c;
+    line-height: 1.1;
+}
+
+.wallet-balance {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    color: #4a5568;
+}
+
+.wallet-balance .amount {
+    color: #2b6cb0;
+    font-weight: 800;
+    font-size: 1.3rem;
+    margin-left: 0.5rem;
+}
+
+/* Bouton d'action principal */
+.btn-primary-custom {
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-primary-custom:hover {
+    background-color: #2c5282;
+    transform: translateY(-2px);
+}
+
+/* --- Carte Conteneur --- */
+.custom-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); /* Ombre très douce */
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    overflow: hidden; /* Pour que le tableau ne dépasse pas des bords arrondis */
+    margin-bottom: 3rem;
+}
+
+/* --- Tableau des Dépenses --- */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.custom-table thead th {
+    background-color: #f7fafc;
+    color: #718096;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #edf2f7;
+    border-top: none;
+}
+
+.custom-table tbody tr {
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.custom-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f8fbff; /* Bleu très très pâle au survol */
+}
+
+.custom-table td {
+    padding: 1.25rem 1.5rem;
+    vertical-align: middle;
+}
+
+/* Colonne Description */
+.td-desc .desc-text {
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.td-desc .user-badge {
+    font-size: 0.8rem;
+    color: #a0aec0;
+}
+
+.td-desc .user-badge strong {
+    color: #718096;
+    font-weight: 600;
+}
+
+/* Colonne Date */
+.td-date {
+    color: #718096;
+}
+
+.date-main {
+    display: block;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.date-time {
+    font-size: 0.8rem;
+    color: #cbd5e0;
+}
+
+/* Colonne Montant */
+.td-amount {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #2d3748;
+    white-space: nowrap;
+}
+
+/* --- Footer & Pagination --- */
+.card-footer-custom {
+    background-color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #edf2f7;
+}
+
+/* --- État Vide (Empty State) --- */
+.empty-state-detail {
+    padding: 4rem 2rem;
+    text-align: center;
+}

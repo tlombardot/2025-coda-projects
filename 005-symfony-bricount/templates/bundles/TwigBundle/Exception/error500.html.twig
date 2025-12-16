@@ -1,0 +1,17 @@
+{# templates/bundles/TwigBundle/Exception/error500.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur Serveur (500){% endblock %}
+
+{% block body %}
+    <div class="container" style="text-align: center; margin-top: 50px;">
+        <h1>Erreur 500</h1>
+        <p>Désolé, une erreur interne est survenue sur le serveur.</p>
+        <p>Nos équipes ont été notifiées.</p>
+
+        <a href="{{ path('wallets_list') }}" class="btn btn-primary">
+            Retour à l'accueil
+        </a>
+    </div>
+{% endblock %}
+

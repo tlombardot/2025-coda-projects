@@ -1,0 +1,16 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Page introuvable (404){% endblock %}
+
+{% block body %}
+    <div class="container" style="text-align: center; margin-top: 50px;">
+        <h1>Erreur 404</h1>
+        <p>Oups ! La page que vous recherchez n'existe pas ou a été déplacée.</p>
+
+        {# Remplacez 'wallets_list' par le nom de votre route d'accueil #}
+        <a href="{{ path('wallets_list') }}" class="btn btn-primary">
+            Retour à l'accueil
+        </a>
+    </div>
+{% endblock %}
